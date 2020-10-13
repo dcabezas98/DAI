@@ -1,13 +1,13 @@
 #./app/app.py
-from flask import Flask
+from flask import Flask, render_template
 import time
 import re
 
 app = Flask(__name__)
           
 @app.route('/')
-def hello_world():
-    return 'Hello, World!'
+def index():
+    return render_template('index.html')
 
 # Ejercicio 2: Algoritmos de ordenación
 
@@ -149,17 +149,17 @@ def corchetes(l):
 @app.route('/re/<cadena>')
 def wordUpper(cadena):
     match = re.findall(r'\w+ [A-Z](?!\w)',cadena)
-    return ', '.join(match)
+    return cadena+'<br/><br/>'+', '.join(match)
 
 # Identificar correos electrónicos válidos
 @app.route('/emails/<cadena>')
 def emails(cadena):
-    #match = re.findall(r'\w+(\.\w+)*@\w+(\.\w+)+',cadena) # Devuelve tuplas, hay que arreglarlo
-    return str(match)
-    return ', '.join(match)
+    match = re.findall(r'(?<=\s|\:)(\w+(\.\w+)*@\w+(\.\w+)+)(?=\.|\s|,)',cadena)
+    match = [m[0] for m in match]
+    return cadena+'<br/><br/>'+', '.join(match)
 
 # Identificar números de tarjeta de crédito
 @app.route('/creditcards/<cadena>')
 def creditcards(cadena):
-    match = re.findall(r'([0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}|[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4})',cadena)
-    return ', '.join(match)
+    match = re.findall(r'(?<![0-9])([0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}|[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4})(?![0-9])',cadena)
+    return cadena+'<br/><br/>'+', '.join(match)
