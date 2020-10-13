@@ -4,7 +4,14 @@ import time
 import re
 
 app = Flask(__name__)
-          
+
+# Página para URLs inválidas
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def catch_all(path):
+    return 'Lo siento, la URL que buscas no existe.'
+
+# Página principal, con índice
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -163,3 +170,4 @@ def emails(cadena):
 def creditcards(cadena):
     match = re.findall(r'(?<![0-9])([0-9]{4} [0-9]{4} [0-9]{4} [0-9]{4}|[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4})(?![0-9])',cadena)
     return cadena+'<br/><br/>'+', '.join(match)
+
