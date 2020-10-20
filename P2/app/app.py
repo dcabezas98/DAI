@@ -1,7 +1,7 @@
 #./app/app.py
 from flask import Flask, render_template
 from ejercicios import *
-
+from generateSVG import randSVG
 
 app = Flask(__name__)
 
@@ -81,6 +81,22 @@ def creditcards(cadena):
     match = credit_cards(cadena)
     return cadena+'<br/><br/>'+', '.join(match)
 
+# Random SVG
+@app.route('/svg')
+def random_svg():
+    randsvg=randSVG()
+    app.logger.debug('MMMMMMM\n')
+    app.logger.debug(randSVG())
+
+    if randsvg[0] == 1:
+        return render_template('SVGellipse.html', cx=randsvg[1],
+                               cy=randsvg[2], rx=randsvg[3],
+                               ry=randsvg[4], fill=randsvg[5])
+    elif randsvg[0] == 2:
+        return render_template('SVGrectangle.html', x=randsvg[1],
+                               y=randsvg[2], width=randsvg[3],
+                               height=randsvg[4], fill=randsvg[5])
+    
 # Manejador de error 404: URL no definida
 @app.errorhandler(404)
 def page_not_found(e):
