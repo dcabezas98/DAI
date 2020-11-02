@@ -95,7 +95,7 @@ def creditcards(cadena):
 @app.route('/svg')
 def random_svg():
     randsvg=randSVG()
-    """ Otra forma peor de hacerlo, con generateSVG2.py y dos templates
+
     if randsvg[0] == 1:
         return render_template('SVGellipse.html', cx=randsvg[1],
                                cy=randsvg[2], rx=randsvg[3],
@@ -104,8 +104,6 @@ def random_svg():
         return render_template('SVGrectangle.html', x=randsvg[1],
                                y=randsvg[2], width=randsvg[3],
                                height=randsvg[4], fill=randsvg[5])
-    """
-    return render_ejer('Random SVG',''.join(randsvg))
     
 # Manejador de error 404: URL no definida
 @app.errorhandler(404)
