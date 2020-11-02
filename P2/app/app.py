@@ -8,7 +8,7 @@ app = Flask(__name__)
 # Página principal, con índice
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return app.send_static_file('index.html')
 
 # Ejercicio 2: Algoritmos de ordenación
 
@@ -85,9 +85,7 @@ def creditcards(cadena):
 @app.route('/svg')
 def random_svg():
     randsvg=randSVG()
-    app.logger.debug('MMMMMMM\n')
-    app.logger.debug(randSVG())
-
+    """ Otra forma peor de hacerlo, con generateSVG2.py y dos templates
     if randsvg[0] == 1:
         return render_template('SVGellipse.html', cx=randsvg[1],
                                cy=randsvg[2], rx=randsvg[3],
@@ -96,6 +94,8 @@ def random_svg():
         return render_template('SVGrectangle.html', x=randsvg[1],
                                y=randsvg[2], width=randsvg[3],
                                height=randsvg[4], fill=randsvg[5])
+    """
+    return '<h1>Random SVG<br/></h1>'+''.join(randsvg)
     
 # Manejador de error 404: URL no definida
 @app.errorhandler(404)
