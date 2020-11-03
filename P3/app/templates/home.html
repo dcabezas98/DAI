@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+<!-- Si el usuario se ha logueado, le aparece un mensaje personalizado -->
+<!-- En caso contrario, aparece un mensaje genérico -->
+{% block name %}
+{% if session['user'] %}
+<h1>Bienvenid@ {{session['user']}} :)<br/></h1>
+{% else %}
+<h1>Bienvenid@! :)<br/></h1>
+{% endif %}
+{% endblock %}
+
+
+{% block content %}
+{% if session['user'] %}
+Esperamos que te diviertas navegando por esta página.
+{% else %}
+Puedes continuar como invitad@ o loguearte/registrarte para que se guarde tu historial.
+{% endif %}
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+<!-- Si el usuario se ha logueado, le aparece un mensaje personalizado -->
+<!-- En caso contrario, aparece un mensaje genérico -->
+{% block name %}
+{% if session['user'] %}
+<h1>{{session['user']}}<br/></h1>
+{% else %}
+No hay ninguna sesión iniciada. <a href="/home">Volver.</a>
+{% endif %}
+{% endblock %}
+
+
+{% block content %}
+{% if session['user'] %}
+<p><strong>Usuario: </strong>{{session['user']}}</p>
+<p><strong>Color favorito: </strong>{{user['color']}}</p>
+<a class="btn btn mb-1" href="/change">Editar</a>
+<a class="btn btn mb-1" onclick="return confirm('Are you sure?')" href="/delete">Eliminar usuario</a>
+{% endif %}
+{% endblock %}

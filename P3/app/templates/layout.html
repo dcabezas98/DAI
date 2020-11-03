@@ -14,7 +14,7 @@
     <header>
       <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-dark" id="navbar">
-	<a class="navbar-brand" href="/"><img src="{{url_for('static', filename='ccorp-logo.png')}}" width="48px" height="48px"> Práctica 3</a>
+	<a class="navbar-brand" href="/home"><img src="{{url_for('static', filename='ccorp-logo.png')}}" width="48px" height="48px"> Práctica 3</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
 	  <span class="navbar-toggler-icon"></span>
 	</button>
@@ -54,14 +54,17 @@
 		</li>
 	    
 	</ul>
-
-	  <form class="form-inline mt-2 mt-md-0" method="POST" action="/login">
+	{% if session['user'] %}
+	<a class="btn btn mb-1 mr-2" id="user-btn" href="/user">{{session['user']}}</a>
+	<a class="btn btn mb-1" id="logout-btn" href="/logout">Log Out</a>
+	{% else %}
+	  <form class="form-inline mb-1 mt-4 mt-md-0" method="POST" action="/login">
 		<input name="user" class="form-control mr-sm-2" type="text" placeholder="User">
-		<input name="password" class="form-control mr-sm-2" type="password" placeholder="Password">
+		<input name="passwd" class="form-control mr-sm-2" type="password" placeholder="Password">
 	    <button class="btn btn-success mr-sm-2" type="submit">Sign In</button>
 	  </form>
-	  <a class="btn btn-outline-success mb-3" id="signup-btn" href="/signup">Sing Up</a>
-
+	  <a class="btn btn mb-1" id="signup-btn" href="/signup">Sign Up</a>
+	  {% endif %}
 	</div>
       </nav>
     </header>
@@ -70,9 +73,24 @@
       <div class="row">
 	<!-- Begin page content -->
 	<main role="main" class="container-fluid col-md-9">
-	  <div id="content">
-		  {% block name %}<h1>Hola! :)</h1>{% endblock %}
-		  {% block content %}Bienvenido.{% endblock %}
+	  <!-- Posibles mensajes flash -->
+		{% with msgs=get_flashed_messages() %}
+		{% if msgs %}
+			{% for msg in msgs %}
+			{% if ":(" in msg %}
+			<div class="alert alert-danger" role="alert">{{msg}}</div>
+			{% elif ":)" in msg or ":D" in msg %}
+			<div class="alert alert-success" role="alert">{{msg}}</div>
+			{% else %}
+			<div class="alert alert-primary" role="alert">{{msg}}</div>
+			{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% endwith %}
+		
+		<div id="content">
+		  {% block name %}{% endblock %}
+		  {% block content %}{% endblock %}
 	  </div>
 	</main>
 

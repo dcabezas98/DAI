@@ -1,5 +1,5 @@
 #./app/app.py
-from flask import Flask, render_template, session, request
+from flask import Flask, render_template, session, request, flash, redirect, url_for
 from pickleshare import *
 from ejercicios import *
 from generateSVG import randSVG
@@ -7,18 +7,87 @@ from generateSVG import randSVG
 app = Flask(__name__)
 app.secret_key='esto-es-una-clave-muy-secreta'
 
+db=PickleShareDB('miBD')
+#db.clear()
+
 # Página principal, con índice
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return redirect(url_for('home'))
 
-#Login
+@app.route('/home')
+def home():
+    return render_template('home.html')
+
+# Login
 @app.route('/login', methods=['POST'])
 def login():
     user = request.form['user']
-    passwd = request.form['password']
-    session['user']=user
-    #TODO
+    passwd = request.form['passwd']
+    
+    if user in db:
+        if passwd == db[user]['passwd']:
+            session['user']=user
+            flash(user+' loguead@ con éxito :D')
+        else:
+            flash('Contraseña Incorrecta :(')
+    else:
+        flash('Usuario no registrado :(')
+
+    return redirect(url_for('home'))
+
+# Registro
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        user = request.form['user']
+        passwd = request.form['passwd']
+        color = request.form['color']
+        if user not in db:          
+            session['user']=user
+            db[user]={'passwd':passwd, 'color':color}
+            flash(user+' resgistrad@ con éxito :D')
+        else:
+            flash(user+' ya está registrad@ >:(')
+        return redirect(url_for('home'))
+
+    return render_template('signup.html')
+
+@app.route('/logout')
+def logout():
+    flash('Hasta pronto '+session['user']+'!')
+    session['user']=''
+    return redirect(url_for('home'))
+
+@app.route('/user')
+def user():
+    return render_template('user.html', user=db[session['user']])
+
+@app.route('/change', methods=['GET','POST'])
+def change():
+    if request.method == 'POST':
+        user = request.form['user']
+        passwd = request.form['passwd']
+        color = request.form['color']
+
+        if user == session['user'] or user not in db:
+            del db[session['user']] # Borro el antiguo usuario
+            db[user]={'passwd':passwd, 'color':color} # Creo el nuevo
+            session['user']=user
+            flash('Cambios guardados con éxito :)')
+            return redirect(url_for('home'))
+        else:
+            flash(user+' ya está registrad@, no se han guardado los cambios >:(')
+            return redirect(url_for('change'))
+        
+    return render_template('change.html', user=db[session['user']])
+
+@app.route('/delete')
+def delete():
+    del db[session['user']]
+    flash('El usuario '+session['user']+' ha sido eliminado')
+    session['user']=''
+    return redirect(url_for('home'))
 
 # Ejercicio 2: Algoritmos de ordenación
 
