@@ -22,7 +22,7 @@
 	  <ul class="navbar-nav mr-auto"> <!-- mr-auto para dejar todo el margen disponible a la derecha -->
 	    
 	    <li class="nav-item active mr-1" id="navb-item">
-	      <a class="nav-link" href="/adivinar">Ejercicio 1</a>
+	      <a class="nav-link" href="/adivina">Ejercicio 1</a>
 		</li>
 		<li class="dropdown mt-2 mr-1" id="navb-item">
 			<a class="dropdown-toggle" id="navb-item" data-toggle="dropdown" href="">Ejercicio 2<span class="caret"></span></a>
@@ -78,11 +78,11 @@
 		{% if msgs %}
 			{% for msg in msgs %}
 			{% if ":(" in msg %}
-			<div class="alert alert-danger" role="alert">{{msg}}</div>
+			<div class="alert alert-danger mt-2 mb-1" role="alert">{{msg}}</div>
 			{% elif ":)" in msg or ":D" in msg %}
-			<div class="alert alert-success" role="alert">{{msg}}</div>
+			<div class="alert alert-success mt-2 mb-1" role="alert">{{msg}}</div>
 			{% else %}
-			<div class="alert alert-primary" role="alert">{{msg}}</div>
+			<div class="alert alert-primary mt-2 mb-1" role="alert">{{msg}}</div>
 			{% endif %}
 			{% endfor %}
 		{% endif %}
@@ -104,21 +104,29 @@
 		  </strong>
 			</li>
 			<li class="nav-item" id="sideb-item">
-		  <a class="nav-link" href="#">
-			Orders
-		  </a>
-			</li>
-			</li>
-			<li class="nav-item" id="sideb-item">
-		<a class="nav-link" href="#">
-			Orders
-		</a>
-			</li>
+			{% if session['user'] %}
+		  <a class="nav-link" href="{{session['urls'][1]}}">
+			  {{session['names'][1]}}
+			</a>
+			{% else %}
+				Inicia sesión para ver tu historial.
+			{% endif %}
 			</li>
 			<li class="nav-item" id="sideb-item">
-		<a class="nav-link" href="#">
-			Orders
-		</a>
+				{% if session['user'] %}
+			  <a class="nav-link" href="{{session['urls'][2]}}">
+				{{session['names'][2]}}
+			  </a>
+				{% endif %}	
+				</li>
+			</li>
+			<li class="nav-item" id="sideb-item">
+				{% if session['user'] %}
+			  <a class="nav-link" href="{{session['urls'][3]}}">
+				{{session['names'][3]}}
+			  </a>
+				{% endif %}
+				</li>
 			</li>
 		  </ul>
 		</div>

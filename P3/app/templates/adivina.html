@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block name %}
+<h1>Adivina el número que estoy pensando (entre 1 y 100).<br/></h1>
+{% endblock %}
+
+{% block content %}
+<h2>{{msg}}</h2>
+{% if fin %}
+Pulsa <a href="/adivina">aquí</a> para jugar de nuevo.
+{% else %}
+{{tries}} intentos.
+<div class="row">
+    <div class="col-md-4">
+<form class="form-inline " method="POST" action="/adivina">
+    <label for="n">Adivina el número:</label>
+    <input name="n" class="form-control mr-sm-2" type="number" placeholder="Número">
+    <button class="btn btn mt-sm-2" type="submit">Enviar</button>
+</form>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
