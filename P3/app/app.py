@@ -1,15 +1,12 @@
 #./app/app.py
 from flask import Flask, render_template, session, request, flash, redirect, url_for
-from pickleshare import *
+from model import *
 from ejercicios import *
 from random import randint
 from generateSVG import randSVG
 
 app = Flask(__name__)
 app.secret_key='esto-es-una-clave-muy-secreta'
-
-db=PickleShareDB('miBD')
-#db.clear()
 
 # Página principal, con índice
 @app.route('/')
@@ -27,8 +24,8 @@ def login():
     user = request.form['user']
     passwd = request.form['passwd']
     
-    if user in db:
-        if passwd == db[user]['passwd']:
+    if checkUser(user):
+        if passwd == getUser(user)['passwd']:
             session['user']=user
             session['urls'] = []
             session['names']= []
@@ -47,12 +44,12 @@ def signup():
         user = request.form['user']
         passwd = request.form['passwd']
         color = request.form['color']
-        if user not in db:          
+        if not checkUser(user):          
             session['user']=user
             session['urls'] = []
             session['names']= []
-            db[user]={'passwd':passwd, 'color':color}
-            flash(user+' resgistrad@ con éxito :D')
+            addUser(user,{'passwd':passwd, 'color':color})
+            flash(user+' registrad@ con éxito :D')
         else:
             flash(user+' ya está registrad@ >:(')
         return redirect(url_for('home'))
@@ -68,7 +65,7 @@ def logout():
 @app.route('/user')
 def user():
     store_visted_urls(request.url, 'User')
-    return render_template('user.html', user=db[session['user']])
+    return render_template('user.html', user=getUser(session['user']))
 
 @app.route('/change', methods=['GET','POST'])
 def change():
@@ -77,9 +74,9 @@ def change():
         passwd = request.form['passwd']
         color = request.form['color']
 
-        if user == session['user'] or user not in db:
-            del db[session['user']] # Borro el antiguo usuario
-            db[user]={'passwd':passwd, 'color':color} # Creo el nuevo
+        if user == session['user'] or not checkUser(user):
+            delUser(session['user']) # Borro el antiguo usuario
+            addUser(user,{'passwd':passwd, 'color':color}) # Creo el nuevo
             session['user']=user
             flash('Cambios guardados con éxito :)')
             return redirect(url_for('home'))
@@ -88,11 +85,11 @@ def change():
             return redirect(url_for('change'))
 
     store_visted_urls(request.url, 'Edit')
-    return render_template('change.html', user=db[session['user']])
+    return render_template('change.html', user=getUser(session['user']))
 
 @app.route('/delete')
 def delete():
-    del db[session['user']]
+    delUser(session['user'])
     flash('El usuario '+session['user']+' ha sido eliminado')
     session['user']=''
     return redirect(url_for('home'))
