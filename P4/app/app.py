@@ -30,3 +30,8 @@ def pokemon():
     lista_pokemons = [{k:p[k] for k in ("num","name","img","type","prev_evolution","next_evolution") if k in p} for p in pokemons]
     
     return render_template('pokemon.html',lista=lista_pokemons)
+
+# Manejador de error 404: URL no definida
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
