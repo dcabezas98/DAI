@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block name %}
+<h1>Pokemon<br/></h1>
+{% endblock %}
+
+{% block search %}
+<h2>Search:</h2>
+
+<form class="form-inline mb-1 mt-4 mt-md-0" method="POST" action="/pokemon">
+<input name="num" class="form-control mr-sm-2" type="number" placeholder="Number">
+<button class="btn btn-success mr-sm-2" type="submit">By number</button>
+</form>
+
+<form class="form-inline mb-1 mt-4 mt-md-0" method="POST" action="/pokemon">
+    <input name="name" class="form-control mr-sm-2" type="text" placeholder="Name">
+<button class="btn btn-success mr-sm-2" type="submit">By name</button>
+</form>
+
+<form class="form-inline mb-1 mt-4 mt-md-0" method="POST" action="/pokemon">
+    <input name="type" class="form-control mr-sm-2" type="text" placeholder="Type">
+<button class="btn btn-success mr-sm-2" type="submit">By type</button>
+</form>
+{% endblock %}
+
+{% block content %}
+<div class="row" id="header">
+    <div class="col">Nº</div>
+    <div class="col">Name</div>
+    <div class="col">Image</div>
+    <div class="col">Type</div>
+    <div class="col">Prev Evol</div>
+    <div class="col">Next Evol</div>
+</div>
+{% for pok in lista %}
+<div class="row" id="instance">
+    <div class="col">{{pok['num']}}</div>
+    <div class="col">{{pok['name']}}</div>
+    <div class="col"><img src="{{pok['img']}}"></img></div>
+    <div class="col">
+        {% for t in pok['type'] %}
+        {{t}}<br/> 
+        {% endfor %}
+    </div>
+    <div class="col">
+        {% if 'prev_evolution' in pok %}
+        {% for e in pok['prev_evolution'] %}
+            {{e['num']}}: {{e['name']}}<br/>
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div class="col">
+        {% if 'next_evolution' in pok %}
+        {% for e in pok['next_evolution'] %}
+            {{e['num']}}: {{e['name']}}<br/>
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
