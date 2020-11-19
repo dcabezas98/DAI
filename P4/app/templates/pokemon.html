@@ -7,6 +7,8 @@
 {% block search %}
 <h2>Search:</h2>
 
+<div class="row">
+    <div class="col">
 <form class="form-inline mb-1 mt-4 mt-md-0" method="POST" action="/pokemon">
 <input name="num" class="form-control mr-sm-2" type="number" placeholder="Number">
 <button class="btn btn-success mr-sm-2" type="submit">By number</button>
@@ -17,20 +19,26 @@
 <button class="btn btn-success mr-sm-2" type="submit">By name</button>
 </form>
 
-<form class="form-inline mb-1 mt-4 mt-md-0" method="POST" action="/pokemon">
+<form class="form-inline mb-1 mt-4 mt-md-0 mb-2" method="POST" action="/pokemon">
     <input name="type" class="form-control mr-sm-2" type="text" placeholder="Type">
 <button class="btn btn-success mr-sm-2" type="submit">By type</button>
 </form>
+</div>
+<div class="col">
+    <a class="btn btn" id="saveBtn" href="/pokemon/add">Add New Pokemon</a></div>
+</div>
 {% endblock %}
 
 {% block content %}
-<div class="row" id="header">
+<strong>Showing: {{n}}</strong>
+<div class="row mt-2" id="header">
     <div class="col">Nº</div>
     <div class="col">Name</div>
     <div class="col">Image</div>
     <div class="col">Type</div>
     <div class="col">Prev Evol</div>
     <div class="col">Next Evol</div>
+    <div class="col"></div>
 </div>
 {% for pok in lista %}
 <div class="row" id="instance">
@@ -55,6 +63,9 @@
             {{e['num']}}: {{e['name']}}<br/>
         {% endfor %}
         {% endif %}
+    </div>
+    <div class="col">
+        <a class="btn btn mt-4" id="editBtn" href="/pokemon/edit/{{pok['num']}}">Edit<br/>Delete</a>
     </div>
 </div>
 {% endfor %}

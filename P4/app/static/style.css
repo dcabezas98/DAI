@@ -41,3 +41,20 @@ body {
     border-left: solid;
     border-right: solid;
 }
+
+#editBtn{
+    color: #060606;
+    background-color: #cfcf4f;
+    border-color: #cfcf4f;
+}
+
+#editBtn:hover{
+    background-color: #c0c040;
+    border-color: #c0c040;
+}
+
+#saveBtn{
+    background-color: #ffc040;
+    border-color: #ffc040;
+    color: #000000;
+}
