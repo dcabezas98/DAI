@@ -5,10 +5,9 @@
 {% endblock %}
 
 {% block search %}
-<h2>Search:</h2>
-
 <div class="row">
-    <div class="col">
+    <div class="col-md-4">
+    <h2>Search:</h2>
 <form class="form-inline mb-1 mt-4 mt-md-0" method="POST" action="/pokemon">
 <input name="num" class="form-control mr-sm-2" type="number" placeholder="Number">
 <button class="btn btn-success mr-sm-2" type="submit">By number</button>
@@ -24,8 +23,17 @@
 <button class="btn btn-success mr-sm-2" type="submit">By type</button>
 </form>
 </div>
-<div class="col">
-    <a class="btn btn" id="saveBtn" href="/pokemon/add">Add New Pokemon</a></div>
+<div class="col-md-4">
+    <h2>Advanced search:</h2>
+    <form class="form mb-1 mt-0" method="POST" action="/pokemon/adv">
+        <input name="name" class="form-control mt-2" type="text" placeholder="Name">
+        <input name="type" class="form-control mt-2" type="text" placeholder="Type">
+    <button class="btn btn-success mt-2" type="submit">Search</button>
+    </form>
+</div>
+<div class="col-md-2 ml-4">
+    <a class="btn btn ml-4" id="saveBtn" href="/pokemon/add">Add New Pokemon</a>
+</div>
 </div>
 {% endblock %}
 
@@ -44,7 +52,7 @@
 <div class="row" id="instance">
     <div class="col">{{pok['num']}}</div>
     <div class="col">{{pok['name']}}</div>
-    <div class="col"><img src="{{pok['img']}}"></img></div>
+    <div class="col"><img src="{{pok['img']}}" width="120" height="120"></img></div>
     <div class="col">
         {% for t in pok['type'] %}
         {{t}}<br/> 

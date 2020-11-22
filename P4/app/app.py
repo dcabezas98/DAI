@@ -37,6 +37,18 @@ def pokemon():
     
     return render_template('pokemon.html',n=len(lista_pokemons),lista=lista_pokemons)
 
+@app.route('/pokemon/adv', methods=['POST'])
+def pokemon_adv():
+    
+    name=request.form['name']
+    typ=request.form['type']
+    
+    pokemons=db.samples_pokemon.find({'name':{"$regex":request.form['name'],"$options":'i'}, 'type':{"$regex":request.form['type'],"$options":'i'}}).sort('id')
+        
+    lista_pokemons = [{k:p[k] for k in ("num","name","img","type","prev_evolution","next_evolution") if k in p} for p in pokemons]
+    
+    return render_template('pokemon.html',n=len(lista_pokemons),lista=lista_pokemons)
+
 # Crea una lista desde un string
 def stripList(l):
     l=l.replace('[','').replace(']','').replace(' ','').replace("'","")
@@ -58,6 +70,8 @@ def editPkmn(num):
 
     if request.method=='POST':
         n=request.form['num']
+        if len(n)<3:
+                n='0'*(3-len(n))+n
         name=request.form['name']
         img=request.form['img']
         typ=stripList(request.form['type'])
@@ -85,7 +99,6 @@ def editPkmn(num):
 
 @app.route('/pokemon/add', methods=['GET','POST'])
 def addPkmn():
-
     if request.method=='POST':
         n=request.form['num']
         if len(n)<3:
@@ -97,8 +110,7 @@ def addPkmn():
         nex=stripDictList(request.form['next'])
         # No se puede pisar el número de otro pokemon
         if db.samples_pokemon.find({'id':int(n)}).count()==0:
-            db.samples_pokemon.insert({'name':name,
-                                                   'id':int(n), 'img':img,
+            db.samples_pokemon.insert({'name':name,'id':int(n), 'img':img,
                                                    'num':n, 'type':typ,
                                                    'prev_evolution':prev,
                                                    'next_evolution':nex})
