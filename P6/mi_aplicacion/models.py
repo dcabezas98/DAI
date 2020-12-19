@@ -13,7 +13,7 @@ from django.utils import timezone
 
 class Libro(models.Model):
   titulo = models.CharField(max_length=200)
-  portada = models.ImageField(upload_to='covers', default='default-cover.jpg')
+  portada = models.ImageField(upload_to='covers', default='covers/default-cover.png')
 
   def __str__(self):
     return self.titulo
@@ -23,12 +23,17 @@ class Prestamo(models.Model):
   fecha   = models.DateField(default=timezone.now)
   usuario = models.CharField(max_length=100)
 
+  def __srt__(self):
+    return self.usuario
+
 class Autor(models.Model):
   nombre = models.CharField(max_length=100)
   obras = models.ManyToManyField(Libro)
+  
+  def __srt__(self):
+    return self.nombre
 
   class Meta:
         verbose_name_plural = "Autores"
 
-  def __srt__(self):
-    return self.nombre
+  

@@ -1,15 +1,25 @@
+from django.core.exceptions import ValidationError
 from django import forms
 from .models import *
-from django.utils import timezone
+import datetime
 
-class NewLibroForm(forms.Form):
-    titulo = forms.CharField(help_text="Título")
-    portada = forms.ImageField(help_text="Portada", required=False)
 
-class NewAutorForm(forms.Form):
-    nombre = forms.CharField(help_text="Nombre")
+class LibroForm(forms.ModelForm):
+    class Meta:
+        model = Libro
+        fields = ('titulo', 'portada')
 
-class NewPrestamoForm(forms.Form):
-    libro   = forms.CharField(help_text="Libro")
-    fecha   = forms.DateField(initial=timezone.now)
-    usuario = forms.CharField(help_text="Usuario")
+class AutorForm(forms.ModelForm):
+    class Meta:
+        model = Autor
+        fields = ('nombre', 'obras')
+
+class PrestamoForm(forms.ModelForm):
+    class Meta:
+        model = Prestamo
+        fields= ('libro', 'fecha', 'usuario')
+    def clean_fecha(self):
+        data=self.cleaned_data['fecha']
+        if data<datetime.date.today():
+            raise ValidationError('La fecha no puede ser pasada', code='fecha_pasada')
+        return data

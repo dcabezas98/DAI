@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}<h2>Listado de Prestamos</h2>{% endblock %}
+
+{% block content %}
+<strong>Mostrando: {{n}}</strong>
+<div class="row mt-2" id="header">
+    <div class="col pt-2">Libro</div>
+    <div class="col pt-2">Fecha</div>
+    <div class="col pt-2">Usuario</div>
+    <div class="col pt-2"><a class="btn btn-success mb-2" href="/add_prestamo/">Nuevo préstamo</a></div>
+</div>
+{% for prestamo in lista %}
+<div class="row" id="instance">
+  <div class="col">{{prestamo.libro}}</div>
+  <div class="col">{{prestamo.fecha}}</div>
+  <div class="col">{{prestamo.usuario}}</div>
+  <div class="col">
+    <a class="btn btn-primary mt-2 mb-2" href="/edit_prestamo/{{ prestamo.id }}">Editar</a>
+    <a class="btn btn-danger mt-2 ml-2 mb-2" href="/delete_prestamo/{{ prestamo.id }}" onClick="return confirm('¿Seguro que quieres borrar este préstamo?');">Borrar</a>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
