@@ -5,7 +5,7 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<form method="POST" action="/edit_autor/">
+<form method="POST" action="/edit_autor/{{pk}}">
     {% csrf_token %}
     {{ form|crispy }}
     <button type="submit">Guardar cambios</button>

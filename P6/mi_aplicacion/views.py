@@ -66,7 +66,7 @@ def edit_libro(request,pk):
             form.save()
             return redirect('list_libros')
 
-    return render(request, 'edit_libro.html', {'form':form})
+    return render(request, 'edit_libro.html', {'form':form, 'pk':pk})
     
 def edit_autor(request,pk):
     instancia = Autor.objects.get(id=pk)
@@ -77,7 +77,7 @@ def edit_autor(request,pk):
             form.save()
             return redirect('list_autores')
 
-    return render(request, 'edit_autor.html', {'form':form})
+    return render(request, 'edit_autor.html', {'form':form, 'pk':pk})
 
 def edit_prestamo(request,pk):
     instancia = Prestamo.objects.get(id=pk)
@@ -88,7 +88,7 @@ def edit_prestamo(request,pk):
             form.save()
             return redirect('list_prestamos')
 
-    return render(request, 'edit_prestamo.html', {'form':form})
+    return render(request, 'edit_prestamo.html', {'form':form, 'pk':pk})
 
 def delete_libro(request,pk):
     instancia = Libro.objects.get(id=pk)

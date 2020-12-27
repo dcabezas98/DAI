@@ -5,7 +5,7 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<form method="POST" action="/edit_libro/" enctype="multipart/form-data">
+<form method="POST" action="/edit_libro/{{pk}}" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form|crispy }}
     <button type="submit">Guardar cambios</button>
