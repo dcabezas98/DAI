@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}<h2>Listado de Autores</h2>{% endblock %}
+
+{% block content %}
+<strong>Mostrando: {{n}}</strong>
+<div class="row mt-2" id="header">
+    <div class="col pt-2">Nombre</div>
+    <div class="col pt-2">Obras</div>
+    <div class="col pt-2"><a class="btn btn-success mb-2" href="/add_autor/">Nuevo autor</a></div>
+</div>
+{% for autor in lista %}
+<div class="row" id="instance">
+  <div class="col">{{autor.nombre}}</div>
+  <div class="col">
+    {% for libro in autor.obras.all %}
+            {{libro}}<br/>
+        {% endfor %}  
+  </div>
+  <div class="col">
+    <a class="btn btn-primary mt-2 mb-2" href="/edit_autor/{{ autor.id }}">Editar</a>
+    <a class="btn btn-danger mt-2 ml-2 mb-2" href="/delete_autor/{{ autor.id }}" onClick="return confirm('¿Seguro que quieres borrar a {{autor.nombre}}?');">Borrar</a>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

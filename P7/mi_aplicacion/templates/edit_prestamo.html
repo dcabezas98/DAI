@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}<h2>Modificar prestamo</h2>{% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<form method="POST" action="/edit_prestamo/{{pk}}">
+    {% csrf_token %}º
+    {{ form|crispy }}
+    <button type="submit">Guardar cambios</button>
+</form>
+{% endblock %}

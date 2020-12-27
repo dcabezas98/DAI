@@ -1,0 +1,70 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  line-height: 60px; /* Vertically center the text there */
+  background-color: #ccccff;
+}
+
+/***************************************/
+
+#navbar {
+    background-color: #662222;
+}
+
+#navb-item {
+    color: #ffffff;
+}
+
+#navb-item:hover {
+    background-color: #cc6666;
+}
+
+#header {
+    font-weight: bold;
+    border: solid;
+}
+
+#instance{
+    border-bottom: solid;
+    border-left: solid;
+    border-right: solid;
+}
+
+#signup-btn{
+    background-color: #4040ff;
+    border-color: #4040ff;
+    color: #ffffff;
+}
+
+#signup-btn:hover{
+    background-color: #3030ee;
+    border-color: #3030ee;
+}
+
+#logout-btn{
+  background-color: #4040ff;
+  border-color: #4040ff;
+  color: #ffffff;
+}
+
+#logout-btn:hover{
+  background-color: #3030ee;
+  border-color: #3030ee;
+}
+
+#username{
+    color: #ffffff;
+}
