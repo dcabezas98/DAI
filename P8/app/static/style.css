@@ -5,9 +5,16 @@ html {
   min-height: 100%;
 }
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    background-color: white;
+    color: black;
 }
+.dark-mode {
+    background-color: black;
+    color: white;
+}
+
 .footer {
   position: absolute;
   bottom: 0;
@@ -57,4 +64,13 @@ body {
     background-color: #ffc040;
     border-color: #ffc040;
     color: #000000;
+}
+
+#darkBtn{
+    background-color: #cfcf4f;
+    border-color: #cfcf4f;
+    color: #000000;
+}
+
+#darkBtn:hover{
 }
