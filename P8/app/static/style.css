@@ -49,21 +49,15 @@ body {
     border-right: solid;
 }
 
-#editBtn{
+.edit-btn{
     color: #060606;
-    background-color: #cfcf4f;
-    border-color: #cfcf4f;
-}
-
-#editBtn:hover{
     background-color: #c0c040;
     border-color: #c0c040;
 }
 
-#saveBtn{
-    background-color: #ffc040;
-    border-color: #ffc040;
-    color: #000000;
+.edit-btn:hover{
+    background-color: #c0b000;
+    border-color: #c0b000;
 }
 
 #darkBtn{

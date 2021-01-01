@@ -32,7 +32,7 @@ def api_1():
         name=''
         typ=''
 
-        if 'num' in args: # Si le pones un número, te devuelve ese número
+        if 'num' in args and args['num']!='': # Si le pones un número, te devuelve ese número
             n=args['num']
             if len(n)<3:
                 n='0'*(3-len(n))+n
@@ -115,7 +115,7 @@ class Pkmns(Resource):
         name=''
         typ=''
 
-        if args['num']!=None: # Si le pones un número, te devuelve ese número
+        if args['num']!=None and args['num']!='': # Si le pones un número, te devuelve ese número
             n=args['num']
             if len(n)<3:
                 n='0'*(3-len(n))+n

@@ -28,10 +28,11 @@ function show_forms(){
         <input name="num" class="form-control" type="number" placeholder="Number">
         <input name="name" class="form-control ml-2" type="text" placeholder="Name">
         <input name="type" class="form-control ml-2" type="text" placeholder="Type">
-    <button class="btn btn-success ml-2" onclick="search();">Search</button>
+    <a id="search-btn" class="btn btn-success ml-2">Search</a>
     </form>
 </div>
 </div>`);
+    $('body').off("click",'#search-btn').on("click", '#search-btn', function(){search();});
     $('#block-content').html(`<strong id="showing"></strong>
 <div class="row mt-2" id="header">
     <div class="col">Nº</div>
@@ -66,8 +67,9 @@ function show_search(response) {
 	    element.next_evolution.forEach(function(e){row+=`${e.num}: ${e.name}<br/>`;});
 	}
 	row+=`</div>`;
-	row+=`<div class="col">`; // Edit/Delete button
-	row+=`<a class="btn btn mt-4" id="editBtn" onclick="delete_pokemon(${element.num});">Delete</a>`;
+	row+=`<div class="col">`; // Delete button
+	row+=`<a class="btn btn mt-4 edit-btn" id="delBtn-${element.num}">Delete</a>`;
+	$('body').off("click",'#delBtn-'+element.num).on("click", '#delBtn-'+element.num, function(){delete_pokemon(element.num)});
 	row+=`</div>`;
 	row+=`</div>`;
 	
@@ -90,10 +92,8 @@ function search() {
     let url='http://0.0.0.0:5000/api/pokemon?';
     $('#search').find(':input').each(function() {
 	url+=$(this).attr('name')+'='+$(this).val()+'&';
-	console.log($(this).attr('name'),$(this).val());
     });
-    console.log(url);
-
+    url = url.slice(0, url.length -1);
     var request = $.ajax({
 	method: "GET",
 	url: url
@@ -108,5 +108,5 @@ function delete_pokemon(num) {
 	url: url
     });
 
-    //search_all();
+    request.done(search);
 }
