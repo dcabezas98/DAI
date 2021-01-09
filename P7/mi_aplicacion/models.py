@@ -22,10 +22,10 @@ class Libro(models.Model):
 class Prestamo(models.Model):
   libro   = models.ForeignKey(Libro, on_delete=models.CASCADE)
   fecha   = models.DateField(default=timezone.now)
-  usuario = models.OneToOneField(User, on_delete=models.CASCADE)
+  usuario = models.ForeignKey(User, on_delete=models.CASCADE)
 
   def __srt__(self):
-    return self.usuario
+    return self.usuario.__str__()
 
 class Autor(models.Model):
   nombre = models.CharField(max_length=100)

@@ -6,7 +6,7 @@
 
 {% block content %}
 <form method="POST" action="/edit_prestamo/{{pk}}">
-    {% csrf_token %}º
+    {% csrf_token %}
     {{ form|crispy }}
     <button type="submit">Guardar cambios</button>
 </form>
