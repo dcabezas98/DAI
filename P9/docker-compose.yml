@@ -1,0 +1,37 @@
+# docker-compose.yml
+version: '3.7'
+
+services: 
+  flask:
+    build: .
+    depends_on:
+      - mongo
+    ports:
+      - 5000:5000
+    expose:
+      - 5000
+    volumes:
+      - ./app:/app
+    working_dir: /app
+    command: gunicorn --bind 0.0.0.0:5000 app:app
+    environment:
+      - FLASK_ENV="production"
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    volumes:
+      - ./dump:/dump            # los datos de prueba
+      - ./datos_db:/data/db     # almacenamiento en el host
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - 80:80
+    # directorios para el archivo de configuracion y archivos del static
+    volumes:
+    - ./conf:/etc/nginx/conf.d
+    - ./app/static:/var/www/static
+    depends_on:
+    - flask

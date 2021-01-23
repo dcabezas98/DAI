@@ -1,0 +1,75 @@
+<html>
+  <head>
+    <title>Práctica 9</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- favicon -->
+    <link rel="icon" type="image/png" href="{{url_for('static', filename='ccorp-logo.png')}}"/>
+
+    <!-- Custom styles for this template -->
+    <link href="{{url_for('static', filename='style.css')}}" rel="stylesheet">
+  </head>
+
+  <body>
+    <header>
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-dark" id="navbar">
+	<a class="navbar-brand" href="/home"><img src="{{url_for('static', filename='ccorp-logo.png')}}" width="48px" height="48px"> Práctica 9</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
+	  <span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarCollapse">
+	  <ul class="navbar-nav mr-auto"> <!-- mr-auto para dejar todo el margen disponible a la derecha -->
+	    
+	    <li class="nav-item active mr-1" id="navb-item">
+	      <a class="nav-link" href="/pokemon">Pokemon</a>
+		</li>
+	</ul>
+	</div>
+      </nav>
+    </header>
+
+    <div class="container">
+      <div class="row">
+	<!-- Begin page content -->
+	<main role="main" class="container col-md-12">
+	  <!-- Posibles mensajes flash -->
+		{% with msgs=get_flashed_messages() %}
+		{% if msgs %}
+			{% for msg in msgs %}
+			{% if ":(" in msg %}
+			<div class="alert alert-danger mt-2 mb-1" role="alert">{{msg}}</div>
+			{% elif ":)" in msg or ":D" in msg %}
+			<div class="alert alert-success mt-2 mb-1" role="alert">{{msg}}</div>
+			{% else %}
+			<div class="alert alert-primary mt-2 mb-1" role="alert">{{msg}}</div>
+			{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% endwith %}
+		
+		<div id="content">
+		  {% block name %}{% endblock %}
+		  {% block search %}{% endblock %}
+		  {% block content %}{% endblock %}
+	  </div>
+	</main>
+      </div>
+    </div>
+
+
+    <!-- Sicky footer -->
+    <footer class="footer">
+      <div class="container">
+	<span class="text-muted">David Cabezas Berrido</span>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+	 ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>
