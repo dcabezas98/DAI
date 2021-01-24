@@ -1,0 +1,7 @@
+https://stackoverflow.com/questions/20026975/using-a-flask-variable-as-data-source-for-highcharts
+
+https://www.highcharts.com/docs/getting-started/your-first-chart
+
+https://stackoverflow.com/questions/14789684/find-mongodb-records-where-array-field-is-not-empty
+
+https://stackoverflow.com/questions/8607365/how-to-change-the-text-color-in-highcharts

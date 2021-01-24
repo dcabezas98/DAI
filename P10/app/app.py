@@ -130,6 +130,25 @@ def deletePkmn(num):
 def page_not_found(e):
     return render_template('404.html'), 404
 
+# Página de estadísticas: Número de Pokemon de cada tipo
+@app.route('/stats-type')
+def statsType():
+    data={}
+    types=db.samples_pokemon.distinct("type") # Lista de tipos
+    for t in types:
+        data[t]=db.samples_pokemon.find({"type":t}).count() # Número de Pokemon de cada tipo
+    return render_template('stats-type.html', types=list(data.keys()), counts=list(data.values()))
+
+# Página de estadísticas: Proporción de Pokemon en cada etapa de evolución
+@app.route('/stats-evol')
+def statsEvol():
+    count=[0]*3
+    count[1]=db.samples_pokemon.find({"prev_evolution":{ "$exists": True, "$size": 1}}).count() # Han evolucionado una vez
+    count[2]=db.samples_pokemon.find({"prev_evolution":{ "$exists": True, "$size": 2}}).count() # Han evolucionado dos veces
+    count[0]=db.samples_pokemon.find({"prev_evolution":{ "$exists": False}}).count() # No han evolucionado nunca
+    count[0]+=db.samples_pokemon.find({"prev_evolution":{ "$exists": True, "$size": 0}}).count()
+    return render_template('stats-evol.html', count=count)
+
 ##############
 #  API REST  #
 ##############

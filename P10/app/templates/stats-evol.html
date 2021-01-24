@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% block name %}
+<h1>Estadísticas<br/></h1>
+{% endblock %}
+
+{% block content %}
+<h3>Pokemon por etapas de evolución:<br/></h3>
+<div id="chart-evol" class="mb-3" style="width:80%; height:500px;"></div>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+      var chart = Highcharts.chart('chart-evol', { // Creación del gráfico
+          chart: {
+	      backgroundColor: '', // Fondo transparente para que se adapte al dark-mode
+	      plotBackgroundColor: null,
+	      plotBorderWidth: null,
+	      plotShadow: false,
+              type: 'pie'
+          },
+          title: {
+              text: 'Clasificación de Pokemon según las veces que han evolucionado',
+	      style:{
+		  color: '#00e080'
+	      }
+          },
+          tooltip: {
+	      pointFormat: '{series.name}: <b>{point.y} ({point.percentage:.1f}%)</b>'
+	  },
+	  accessibility: {
+              point: {
+		  valueSuffix: '%'
+              }
+	  },
+	  plotOptions: {
+              pie: {
+		  allowPointSelect: true,
+		  cursor: 'pointer',
+		  dataLabels: {
+		      enabled: true,
+		      format: '<b>{point.name}</b>: {point.y}',
+		      style: { // Elijo tipos de letra y colores que se vean bien con los dos fondos (blanco y negro)
+			  fontSize: '13px',
+			  color: '#0098ff',
+			  textOutline: false // Desactivo el sombreado del texto
+		      }
+		  }
+              }
+	  },
+	  series: [{
+              name: 'Nº de Pokemon',
+              colorByPoint: true,
+              data: [{
+		  name: 'No han evolucionado ninguna vez',
+		  y: {{count[0]}}
+              }, {
+		  name: 'Han evolucionado una vez',
+		  y: {{count[1]}}
+              }, {
+		  name: 'Han evolucionado dos veces',
+		  y: {{count[2]}}
+              }]
+	  }],
+      });
+  });
+</script>
+
+{% endblock %}

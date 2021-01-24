@@ -33,10 +33,15 @@ body {
 
 #navb-item {
     color: #ffffff;
+    background-color: #662222;
 }
 
 #navb-item:hover {
     background-color: #cc6666;
+}
+
+#dropd{
+    background-color: #662222;
 }
 
 #header {

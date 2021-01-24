@@ -3,6 +3,9 @@
     <title>Práctica 10</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
+    <!-- Highcharts -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+
     <!-- favicon -->
     <link rel="icon" type="image/png" href="{{url_for('static', filename='ccorp-logo.png')}}"/>
 
@@ -24,14 +27,23 @@
 	    
 	    <li class="nav-item active mr-1" id="navb-item">
 	      <a class="nav-link" href="/pokemon">Pokemon</a>
-		</li>
+	    </li>
+	    <li class="dropdown mt-2 mr-1" id="navb-item">
+	      <a class="dropdown-toggle" id="navb-item" data-toggle="dropdown" href="">Estadísticas<span class="caret"></span></a>
+	      <ul class="dropdown-menu" id="dropd">
+		<li><a id="navb-item" href="/stats-type">Tipo</a></li>
+		<li><a id="navb-item" href="/stats-evol">Evolución</a></li>
+	      </ul>
+	    </li>
 	  </ul>
+	  <strong class="text mr-4" style="color:#FFFFFF;background-color:#000000;" id="date"></strong>
+	  <script src="{{url_for('static', filename='date.js')}}"></script>
 	  <button class="btn" id="darkBtn" onclick="{change_mode();}">Dark mode</button>
 	</div>
       </nav>
     </header>
 
-    <div class="container">
+    <div class="container mb-4">
       <div class="row">
 	<!-- Begin page content -->
 	<main role="main" class="container col-md-12">
@@ -61,7 +73,7 @@
 
     <!-- Sicky footer -->
     <footer class="footer">
-      <div class="container">
+      <div class="container mt">
 	<span class="text-muted">David Cabezas Berrido</span>
       </div>
     </footer>
@@ -72,6 +84,5 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="{{url_for('static', filename='front-end.js')}}"></script>
   </body>
 </html>
