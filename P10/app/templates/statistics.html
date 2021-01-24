@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block name %}
+<h1>Estadísticas<br/></h1>
+{% endblock %}
+
+{% block content %}
+<h3>Número de Pokemons de cada tipo:<br/></h3>
+<div id="chart" style="width:100%; height:400px;"></div>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+        const chart = Highcharts.chart('chart', {
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'Número de Pokemons de cada tipo'
+            },
+            xAxis: {
+                categories: {{types|safe}}
+            },
+            yAxis: {
+                title: {
+                    text: ''
+                }
+            },
+            series: [{
+		name: 'Nº de Pokemons',
+                data: {{counts}}
+            }]
+        });
+    });  
+</script>
+
+{% endblock %}
