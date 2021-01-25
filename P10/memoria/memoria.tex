@@ -14,11 +14,6 @@
 \usepackage{parskip}
 \usepackage{xcolor}
 
-\usepackage{booktabs,longtable,array}
-\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
-
 \usepackage{caption}
 
 \usepackage{enumerate} % paquete para poder personalizar fÃ¡cilmente la apariencia de las listas enumerativas
@@ -141,7 +136,7 @@ Implementamos esta funcionalidad en el fichero \texttt{dark-mode.js}
 de la carpeta \texttt{static}. Tenemos una variable llamada
 \texttt{mode} que utilizamos a modo de flag, tomando los valores
 \texttt{classic} (inicialmente) y \texttt{dark}, almacenamos esta
-variable en \textit{localStorage}. La función \texttt{change\_mode} se
+variable en \texttt{localStorage}. La función \texttt{change\_mode} se
 encarga de alternar el valor de esta variable, almacenarlo en el
 almacenamiento local y llamar a \texttt{set\_mode}, que lee el valor
 de \texttt{mode} de \texttt{localStorage} y cambia el estilo de la
@@ -277,6 +272,26 @@ para generar el siguiente gráfico de tarta:
   \label{fig:stats-evol}
 \end{figure}
 
-Intentamos [TODO: graficos estilo para que se vean bien en ambos modos]
+Sería apetecible que el estilo de los gráficos se adaptara al de la
+página (clásico y nocturno), esto presenta varias dificultades. En
+\href{https://www.highcharts.com/forum/viewtopic.php?t=44170}{este
+  post} del foro de \textit{Highcharts}, se sugiere que no es posible
+cambiar las opciones de \textit{Highcharts} de forma dinámica y ofrece
+dos alternativas: una es destruir y volver a crear el gráfico, y la
+otra es utilizar \texttt{update} para modificar el estilo del
+gráfico. Se puede elegir un estilo fácilmente en el momento de generar
+el gráfico leyendo la variable \texttt{mode} de \texttt{localStorage},
+pero a la hora de cambiar de modo con un gráfico en pantalla, habría
+que actualizarlo, lo cual es bastante complejo. Al no encontrar
+ninguna solución satisfactoria, decidimos darle a los gráficos fondo
+transparante y colores que contrasten bien con ambos fondos (blanco y
+negro). Para modificar los colores, estilos y fuentes de los gráficos
+nos basamos en
+\href{https://stackoverflow.com/questions/8607365/how-to-change-the-text-color-in-highcharts}{este
+  ejemplo}.
+
+\section{Mapas}
+
+
   
 \end{document}
