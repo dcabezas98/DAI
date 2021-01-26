@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block name %}
+<h1>Mapa<br/></h1>
+{% endblock %}
+
+{% block content %}
+
+<h4>¡Diviértete explorando!<br/></h4>
+<div id="map-explore" class="mb-3" style="width:100%; height:600px;"></div>
+
+<script>
+// initialize the map on the "map" div with a given center and zoom
+var map = L.map('map-explore', {
+    center: [37.197,-3.624], // Coordenadas iniciales (ETSIIT)
+    zoom: 18
+});
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 21
+  }).addTo(map);
+
+  L.marker([37.197,-3.624], {draggable:true}).addTo(map).bindPopup("¡A explorar!").openPopup(); // TODO Popup coordenadas
+</script>
+
+{% endblock %}

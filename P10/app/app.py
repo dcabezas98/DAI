@@ -149,6 +149,15 @@ def statsEvol():
     count[0]+=db.samples_pokemon.find({"prev_evolution":{ "$exists": True, "$size": 0}}).count()
     return render_template('stats-evol.html', count=count)
 
+# Mapas interactivos
+@app.route('/map-markers')
+def mapMarkers():
+    return render_template('map-markers.html')
+
+@app.route('/map-explore')
+def mapExplore():
+    return render_template('map-explore.html')
+
 ##############
 #  API REST  #
 ##############
