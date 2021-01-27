@@ -80,3 +80,9 @@ body {
 
 #darkBtn:hover{
 }
+
+#locationBtn{
+    background-color: #ffc040;
+    border-color: #ffc040;
+    color: #000000;
+}
