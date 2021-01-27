@@ -80,10 +80,12 @@ Práctica 10 (que también se utiliza como título de la pestaña) y el
 logo de Capsule-Corp (que también se utiliza como favicon), a la
 derecha de este enlace, tenemos otro con el nombre de Pokemon que nos
 lleva a \texttt{/pokemon}, donde podemos visualizar, consultar y
-editar la base de datos de Pokemon gestionada con \textit{MongoDB}. El siguiente
-enlace de la barra de navegación tiene el nombre Estadísticas y abre
-un menú desplegable con enlaces a dos páginas donde visualizamos
-gráficos con estadísticas sobre los Pokemon de la base de datos.
+editar la base de datos de Pokemon gestionada con \textit{MongoDB}. El
+siguiente enlace de la barra de navegación tiene el nombre
+Estadísticas y abre un menú desplegable con enlaces a dos páginas
+donde visualizamos gráficos con estadísticas sobre los Pokemon de la
+base de datos. Después hay otro menú desplegable que nos lleva a
+probar dos mapas interactivos.
 
 En la parte derecha de la barra de navegación tenemos un campo con la
 fecha y hora actual, que se actualiza cada segundo, y un botón para
@@ -94,7 +96,7 @@ Por último, tenemos un footer con el nombre del autor.
 \begin{figure}[H]
   \centering
   \includegraphics[width=180mm]{imgs/home}
-  \caption{Página de bienvenida.}
+  \caption{Página de bienvenida (modo nocturno).}
   \label{fig:home}
 \end{figure}
 
@@ -117,7 +119,7 @@ Pokemon.
 \begin{figure}[H]
   \centering
   \includegraphics[width=180mm]{imgs/pokemon}
-  \caption{Base de datos de Pokemon.}
+  \caption{Base de datos de Pokemon (modo nocturno).}
   \label{fig:pokemon}
 \end{figure}
 
@@ -290,8 +292,71 @@ nos basamos en
 \href{https://stackoverflow.com/questions/8607365/how-to-change-the-text-color-in-highcharts}{este
   ejemplo}.
 
-\section{Mapas}
+\subsection{Mapas}
 
+Incluimos dos mapas interactivos, lo hacemos con la librería
+\href{https://leafletjs.com/}{\textit{Leaflet}}. Hay otras
+alternativas, como las APIs de
+\href{https://developers.google.com/maps/documentation/javascript/overview?hl=es}{\textit{Google
+    Maps}} y de
+\href{https://developers.google.com/maps/documentation/streetview/overview?hl=es}{\textit{Google
+    Street View}}, pero estas dos no son gratuitas.
 
+El primero de los mapas, en la ruta \texttt{map-markers}, permite
+\textbf{añadir y arrastrar marcadores} por el mapa. Lleva una cuenta
+de los marcadores colocados y al hacer click sobre un marcador
+despliega un mensaje con el número de marcador.
+
+Este mapa se genera en el template \texttt{map-markers.html}, se
+inicializa en las coordenadas de la
+\href{https://etsiit.ugr.es/}{\textit{ETSIIT}}. Se añade una variable
+para contabilizar el número de marcadores, con cada click en el mapa
+(conseguimos esto con un manejador el evento \texttt{click}) se genera
+un nuevo, marcador arrastrable con su número correspondiente, y se
+acualiza el contador de marcador. También manegando el evento
+\texttt{dragend} de cada marcador, conseguimos que el mapa se
+recoloque cuando se arrastre el marcador a una posición.
+  
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=180mm]{imgs/map-markers}
+  \caption{Mapa con marcadores.}
+  \label{fig:map-markers}
+\end{figure}
+
+El segundo mapa, en la ruta \texttt{map-explore}, permite
+\textbf{explorar el mundo} introduciendo las coordenadas del lugar al
+que se desea viajar o arrastrando el marcador.
+
+Este mapa se genera en el template \texttt{map-markers.html}, se
+inicializa en las coordenadas de la
+\href{https://etsiit.ugr.es/}{\textit{ETSIIT}}. En la parte superior,
+hay dos campos de entrada con la latitud y la longitud, que admiten
+flotantes con saltos de 0.0005 unidades (la latitud está limitada
+entre -85 y 85 grados). Cuenta con un único marcador, con un mensaje
+que muestra sus coordenadas.
+
+Mientras se arrastra el marcador, se actualizan sus coordenadas tanto
+en el mensaje que muestra como en el formulario de arriba, esto lo
+conseguimos manejando el evento \texttt{drag}, que se desata
+repetidamente mientras se arrastra. Igualmente, cuando se termina de
+desplazar se centra el mapa manejando el evento \texttt{dragend}.
+
+Cuando se modifica alguno de los campos de entrada de la parte
+superior, se desplazan el mapa y el marcador a las coordenadas
+indicadas. Esto se logra manejando el evento \texttt{change} de los
+campos de entrada.
+
+Finalmente, incluimos dos botones en la parte superior. Cada uno de
+ellos desplaza el marcador y el mapa a una localización, además de
+actualizar las coordenadas de los campos de entrada. Uno de estos
+botones nos lleva a la \textit{ETSIIT} y el otro a la Torre Eiffel.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=180mm]{imgs/map-explore}
+  \caption{Mapa para explorar.}
+  \label{fig:map-explore}
+\end{figure}
   
 \end{document}
